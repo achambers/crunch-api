@@ -4,23 +4,23 @@ module CrunchApi
 
     class << self
       def options
-        Hash[CrunchApi.keys.map{|key| [key, send(key)]}]
+        Hash[CrunchApi.keys.map { |key| [key, send(key)] }]
       end
 
       def consumer_key
-        ENV['TWITTER_CONSUMER_KEY']
+        ENV['CRUNCH_CONSUMER_KEY']
       end
 
       def consumer_secret
-        ENV['TWITTER_CONSUMER_SECRET']
+        ENV['CRUNCH_CONSUMER_SECRET']
       end
 
       def oauth_token
-        ENV['TWITTER_OAUTH_TOKEN']
+        ENV['CRUNCH_OAUTH_TOKEN']
       end
 
       def oauth_token_secret
-        ENV['TWITTER_OAUTH_TOKEN_SECRET']
+        ENV['CRUNCH_OAUTH_TOKEN_SECRET']
       end
 
       def endpoint
