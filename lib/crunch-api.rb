@@ -1,5 +1,6 @@
 require_relative 'crunch-api/version'
 require_relative 'crunch-api/default'
+require_relative 'crunch-api/supplier'
 
 module CrunchApi
   class << self
@@ -21,7 +22,7 @@ module CrunchApi
     end
 
     def options
-      Hash[CrunchApi.keys.map{|key| [key, instance_variable_get(:"@#{key}")]}]
+      Hash[CrunchApi.keys.map { |key| [key, instance_variable_get(:"@#{key}")] }]
     end
 
     def reset!
@@ -30,6 +31,7 @@ module CrunchApi
       end
       self
     end
+
     alias setup reset!
   end
 end
