@@ -34,6 +34,17 @@ module CrunchApi
       parse_xml(response.body).collect{|xml| new(xml)}
     end
 
+    def self.for_id(id)
+      consumer = OAuth::Consumer.new(CrunchApi.options[:consumer_key], CrunchApi.options[:consumer_secret], {})
+      token = OAuth::AccessToken.new(consumer, CrunchApi.options[:oauth_token], CrunchApi.options[:oauth_token_secret])
+
+      uri = "#{CrunchApi.options[:endpoint]}#{path}/#{id}"
+
+      response = token.get(uri)
+
+      new(parse_xml(response.body))
+    end
+
     private
 
     def self.path
