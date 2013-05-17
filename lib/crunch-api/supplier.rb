@@ -31,7 +31,7 @@ module CrunchApi
 
       response = token.get(uri)
 
-      parse_xml(response.body).collect{|xml| new(xml)}
+      parse_xml(response.body).collect{|attributes| new(attributes)}
     end
 
     def self.for_id(id)
@@ -52,7 +52,11 @@ module CrunchApi
     end
 
     def self.parse_xml(xml)
-      Nori.new(:convert_tags_to => lambda { |tag| tag.snakecase.to_sym }).parse(xml)[:crunch_message][:suppliers][:supplier]
+      to_hash(xml)[:crunch_message][:suppliers][:supplier]
+    end
+
+    def self.to_hash(xml)
+      Nori.new(:convert_tags_to => lambda { |tag| tag.snakecase.to_sym }).parse(xml)
     end
   end
 end
