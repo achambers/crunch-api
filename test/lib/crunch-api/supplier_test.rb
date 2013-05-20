@@ -77,12 +77,24 @@ describe CrunchApi::Supplier do
       end
     end
 
-    it "returns a supplier" do
-      VCR.use_cassette('get_supplier_by_id_success') do
-        supplier = CrunchApi::Supplier.for_id(711)
+    describe "an existing supplier" do
+      it "returns a supplier" do
+        VCR.use_cassette('get_supplier_by_id_success') do
+          supplier = CrunchApi::Supplier.for_id(711)
 
-        supplier.must_be_kind_of CrunchApi::Supplier
-        supplier.name.must_equal "BT"
+          supplier.must_be_kind_of CrunchApi::Supplier
+          supplier.name.must_equal "BT"
+        end
+      end
+    end
+
+    describe "an unknown supplier" do
+      it "returns nil" do
+        VCR.use_cassette('get_supplier_by_id_failure') do
+          supplier = CrunchApi::Supplier.for_id(999)
+
+          supplier.must_be_nil
+        end
       end
     end
   end

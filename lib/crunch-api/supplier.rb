@@ -42,7 +42,7 @@ module CrunchApi
 
       response = token.get(uri)
 
-      new(parse_xml(response.body))
+      new(parse_xml(response.body)) unless errors?(response.body)
     end
 
     private
@@ -57,6 +57,10 @@ module CrunchApi
 
     def self.to_hash(xml)
       Nori.new(:convert_tags_to => lambda { |tag| tag.snakecase.to_sym }).parse(xml)
+    end
+
+    def self.errors?(xml)
+      to_hash(xml)[:crunch_message].fetch(:errors, []).length > 0
     end
   end
 end

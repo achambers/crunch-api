@@ -1,0 +1,53 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://demo.crunch.co.uk/crunch-core/seam/resource/rest/api/suppliers/999
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - OAuth gem v0.4.7
+      Authorization:
+      - OAuth oauth_consumer_key="aaron_chambers", oauth_nonce="xxx",
+        oauth_signature="xxx", oauth_signature_method="HMAC-SHA1",
+        oauth_timestamp="1368868641", oauth_token="xxx",
+        oauth_version="1.0"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 18 May 2013 09:17:19 GMT
+      Server:
+      - Apache
+      Set-Cookie:
+      - JSESSIONID=uSyPzbvUAZJaqsQ6cR+WDtnC.undefined; Path=/crunch-core; Secure
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - '376'
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Access-Control-Allow-Headers:
+      - Origin, Content-Type, Accept, X-Requested-With, oauth_consumer_key, oauth_token,
+        oauth_signature_method, oauth_signature, oauth_timestamp, oauth_nonce, oauth_version,
+        Authorization
+      Connection:
+      - close
+      Content-Type:
+      - application/*+xml
+    body:
+      encoding: US-ASCII
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><crunchMessage
+        xmlns="http://api.crunch.co.uk/rest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        outcome="failure" xsi:schemaLocation="http://api.crunch.co.uk/rest"><errors
+        count="0"><error><cause>Cannot find supplier with id 999 for Crunch client
+        Aaron Chambers Test Ltd</cause></error></errors></crunchMessage>
+    http_version: 
+  recorded_at: Sat, 18 May 2013 09:17:21 GMT
+recorded_with: VCR 2.4.0
