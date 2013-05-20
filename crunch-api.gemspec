@@ -3,14 +3,19 @@ lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'crunch-api/version'
 
+fullname = `git config --get user.name`.chomp
+email    = `git config --get user.email`.chomp
+login    = `git config --get github.user`.chomp
+gem_name = "crunch-api"
+
 Gem::Specification.new do |spec|
-  spec.name          = "crunch-api"
+  spec.name          = gem_name
   spec.version       = CrunchApi::VERSION
-  spec.authors       = ["Aaron Chambers"]
-  spec.email         = ["achambers@gmail.com"]
+  spec.authors       = [ "#{fullname}" ]
+  spec.email         = "#{email}"
   spec.description   = %q{A Ruby interface to the Crunch Accounting API}
   spec.summary       = spec.description
-  spec.homepage      = ""
+  spec.homepage      = "http://github.com/#{login}/#{gem_name}"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
