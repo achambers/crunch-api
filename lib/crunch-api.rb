@@ -1,5 +1,6 @@
 require_relative 'crunch-api/version'
 require_relative 'crunch-api/default'
+require_relative 'crunch-api/authenticatable'
 require_relative 'crunch-api/supplier'
 
 module CrunchApi

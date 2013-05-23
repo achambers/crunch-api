@@ -1,8 +1,9 @@
-require 'oauth'
 require 'nori'
 
 module CrunchApi
   class Supplier
+
+    extend CrunchApi::Authenticatable
 
     attr_reader :id, :uri, :name, :contact_name, :email, :website, :telephone, :fax, :default_expense_type
 
@@ -24,9 +25,6 @@ module CrunchApi
     end
 
     def self.all
-      consumer = OAuth::Consumer.new(CrunchApi.options[:consumer_key], CrunchApi.options[:consumer_secret], {})
-      token = OAuth::AccessToken.new(consumer, CrunchApi.options[:oauth_token], CrunchApi.options[:oauth_token_secret])
-
       uri = "#{CrunchApi.options[:endpoint]}#{path}"
 
       response = token.get(uri)
@@ -35,9 +33,6 @@ module CrunchApi
     end
 
     def self.for_id(id)
-      consumer = OAuth::Consumer.new(CrunchApi.options[:consumer_key], CrunchApi.options[:consumer_secret], {})
-      token = OAuth::AccessToken.new(consumer, CrunchApi.options[:oauth_token], CrunchApi.options[:oauth_token_secret])
-
       uri = "#{CrunchApi.options[:endpoint]}#{path}/#{id}"
 
       response = token.get(uri)
