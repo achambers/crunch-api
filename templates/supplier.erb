@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<supplier defaultExpenseType="<%= attributes[:default_expense_type] %>" xmlns="http://api.crunch.co.uk/rest">
+<% if attributes[:name] %>
+<name><%= attributes[:name] %></name>
+<% end %>
+<% if attributes[:contact_name] %>
+<contactName><%= attributes[:contact_name] %></contactName>
+<% end %>
+<% if attributes[:email] %>
+<email><%= attributes[:email] %></email>
+<% end %>
+<% if attributes[:website] %>
+<website><%= attributes[:website] %></website>
+<% end %>
+<% if attributes[:telephone] %>
+<telephone><%= attributes[:telephone] %></telephone>
+<% end %>
+<% if attributes[:fax] %>
+<fax><%= attributes[:fax] %></fax>
+<% end %>
+</supplier>

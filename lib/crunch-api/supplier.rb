@@ -8,10 +8,10 @@ module CrunchApi
     attr_reader :id, :uri, :name, :contact_name, :email, :website, :telephone, :fax, :default_expense_type
 
     def initialize(xml)
-      @id = xml[:@supplierId]
-      @uri = xml[:@resourceUrl]
-      @default_expense_type = xml[:@defaultExpenseType]
-      @unknown_supplier_flag = xml[:@unknownSupplier] == "true"
+      @id = xml[:id].to_i
+      @uri = xml[:uri]
+      @default_expense_type = xml[:default_expense_type]
+      @unknown_supplier_flag = xml[:unknown_supplier_flag] == "true"
       @name = xml[:name]
       @contact_name = xml[:contact_name]
       @email = xml[:email]
@@ -25,37 +25,68 @@ module CrunchApi
     end
 
     def self.all
-      uri = "#{CrunchApi.options[:endpoint]}#{path}"
-
-      response = token.get(uri)
+      response = get(path)
 
       parse_xml(response.body).collect{|attributes| new(attributes)}
     end
 
     def self.for_id(id)
-      uri = "#{CrunchApi.options[:endpoint]}#{path}/#{id}"
+      uri = "#{path}/#{id}"
 
-      response = token.get(uri)
+      response = get(uri)
 
       new(parse_xml(response.body)) unless errors?(response.body)
+    end
+
+    def self.add(attributes)
+      xml = request_xml(attributes)
+
+      response = post(path, xml)
+
+      attributes[:id] = parse_xml(response.body)[:id]
+
+      new(attributes)
     end
 
     private
 
     def self.path
-      "/crunch-core/seam/resource/rest/api/suppliers"
+      "#{CrunchApi.options[:endpoint]}/crunch-core/seam/resource/rest/api/suppliers"
     end
 
     def self.parse_xml(xml)
-      to_hash(xml)[:crunch_message][:suppliers][:supplier]
+      hash = to_hash(xml)
+      return hash[:crunch_message][:suppliers][:supplier] if hash[:crunch_message][:suppliers]
+      hash[:crunch_message][:supplier]
     end
 
     def self.to_hash(xml)
-      Nori.new(:convert_tags_to => lambda { |tag| tag.snakecase.to_sym }).parse(xml)
+      mappings = {
+          :@supplierId => :id,
+          :@resource_url => :uri,
+          :@default_expense_type => :default_expense_type,
+          :@unknown_supplier => :unknown_supplier_flag
+      }
+
+      Nori.new(:convert_tags_to => lambda { |tag| mappings[tag.to_sym] || tag.snakecase.to_sym }).parse(xml)
     end
 
     def self.errors?(xml)
       to_hash(xml)[:crunch_message].fetch(:errors, []).length > 0
+    end
+
+    def self.request_xml(attributes)
+      template = File.read('templates/supplier.erb')
+
+      ERB.new(template, 0, '>').result(binding)
+    end
+
+    def self.post(uri, xml)
+      token.post(uri, xml.gsub( "\r", "").gsub( "\n", ""), {'Content-Type'=>'application/xml'})
+    end
+
+    def self.get(uri)
+      token.get(uri)
     end
   end
 end

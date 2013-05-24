@@ -28,7 +28,5 @@ describe CrunchApi::Authenticatable do
     token.consumer.site.must_equal "https://demo.crunch.co.uk"
     token.token.must_equal "oauth_token"
     token.secret.must_equal "oauth_token_secret"
-
-    puts token.public_methods
   end
 end
