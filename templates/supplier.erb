@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<supplier defaultExpenseType="<%= attributes[:default_expense_type] %>" xmlns="http://api.crunch.co.uk/rest">
+<supplier <% if attributes[:default_expense_type] %>defaultExpenseType="<%= attributes[:default_expense_type] %>" <% end %> xmlns="http://api.crunch.co.uk/rest">
 <% if attributes[:name] %>
 <name><%= attributes[:name] %></name>
 <% end %>

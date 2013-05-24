@@ -35,7 +35,7 @@ module CrunchApi
 
       response = get(uri)
 
-      new(parse_xml(response.body)) unless errors?(response.body)
+      new(parse_xml(response.body)) if success?(response.body)
     end
 
     def self.add(attributes)
@@ -43,9 +43,11 @@ module CrunchApi
 
       response = post(path, xml)
 
-      attributes[:id] = parse_xml(response.body)[:id]
+      if success?(response.body)
+        attributes[:id] = parse_xml(response.body)[:id]
 
-      new(attributes)
+        new(attributes)
+      end
     end
 
     private
@@ -56,8 +58,8 @@ module CrunchApi
 
     def self.parse_xml(xml)
       hash = to_hash(xml)
-      return hash[:crunch_message][:suppliers][:supplier] if hash[:crunch_message][:suppliers]
-      hash[:crunch_message][:supplier]
+      hash = hash[:crunch_message][:suppliers] || hash[:crunch_message]
+      hash[:supplier]
     end
 
     def self.to_hash(xml)
@@ -71,8 +73,8 @@ module CrunchApi
       Nori.new(:convert_tags_to => lambda { |tag| mappings[tag.to_sym] || tag.snakecase.to_sym }).parse(xml)
     end
 
-    def self.errors?(xml)
-      to_hash(xml)[:crunch_message].fetch(:errors, []).length > 0
+    def self.success?(xml)
+      to_hash(xml)[:crunch_message][:@outcome] == "success"
     end
 
     def self.request_xml(attributes)

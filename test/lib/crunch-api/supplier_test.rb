@@ -50,7 +50,7 @@ describe CrunchApi::Supplier do
       VCR.use_cassette('get_suppliers_success') do
         CrunchApi::Supplier.all
 
-        assert_requested(:get, 'https://demo.crunch.co.uk/crunch-core/seam/resource/rest/api/suppliers')
+        assert_requested(:get, "https://demo.crunch.co.uk/crunch-core/seam/resource/rest/api/suppliers")
       end
     end
 
@@ -98,29 +98,51 @@ describe CrunchApi::Supplier do
   end
 
   describe "POST /suppliers" do
-    describe "a valid supplier" do
+    it "calls the correct resource" do
+      VCR.use_cassette('add_supplier_success') do
+        CrunchApi::Supplier.add({})
+
+        assert_requested(:post, 'https://demo.crunch.co.uk/crunch-core/seam/resource/rest/api/suppliers')
+      end
+    end
+
+    describe "a successful request" do
       it "creates a the supplier with all fields" do
-        VCR.use_cassette('add_supplier_all_fields_success') do
+        VCR.use_cassette('add_supplier_success') do
           attributes = {
-              default_expense_type: 'GENERAL_INSURANCE',
-              name: 'Waitrose',
-              contact_name: 'Mark Hamill',
-              email: 'mark@waitrose.com',
-              website: 'waitrose.com',
-              telephone: '02123456789',
-              fax: '02987654321'
+              default_expense_type: "GENERAL_INSURANCE",
+              name: "Waitrose",
+              contact_name: "Mark Hamill",
+              email: "mark@waitrose.com",
+              website: "waitrose.com",
+              telephone: "02123456789",
+              fax: "02987654321"
           }
 
           supplier = CrunchApi::Supplier.add(attributes)
 
           supplier.wont_be_nil
           supplier.id.must_equal 844
-          supplier.name.must_equal 'Waitrose'
-          supplier.contact_name.must_equal 'Mark Hamill'
-          supplier.email.must_equal 'mark@waitrose.com'
-          supplier.website.must_equal 'waitrose.com'
-          supplier.telephone.must_equal '02123456789'
-          supplier.fax.must_equal '02987654321'
+          supplier.name.must_equal "Waitrose"
+          supplier.contact_name.must_equal "Mark Hamill"
+          supplier.email.must_equal "mark@waitrose.com"
+          supplier.website.must_equal "waitrose.com"
+          supplier.telephone.must_equal "02123456789"
+          supplier.fax.must_equal "02987654321"
+        end
+      end
+    end
+
+    describe "a failed request" do
+      it "returns nil" do
+        VCR.use_cassette('add_supplier_failure') do
+          attributes = {
+              default_expense_type: "GENERAL_INSURANCE",
+          }
+
+          supplier = CrunchApi::Supplier.add(attributes)
+
+          supplier.must_be_nil
         end
       end
     end
