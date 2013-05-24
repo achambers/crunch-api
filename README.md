@@ -51,7 +51,7 @@ CrunchApi.configure do |config|
 end
 ```
 
-And there you, you're all set to access some Crunchy goodness
+And there you go, you're all set to access some Crunchy goodness
 
 ```ruby
 CrunchApi::Supplier.for_id(123)
@@ -75,6 +75,30 @@ CrunchApi::Supplier.all
 
 ```ruby
 CrunchApi::Supplier.for_id(123)
+```
+
+**Create a new supplier**
+
+```ruby
+CrunchApi::Supplier.create(name: 'Test Supplier')
+```
+
+**Update an existing supplier**
+
+```ruby
+# using a hash of attributes
+CrunchApi::Supplier.update(123, name: 'Test Supplier')
+
+# using an existing supplier
+supplier = CrunchApi::Supplier.for_id(123)
+
+CrunchApi::Supplier.update(1, supplier)
+```
+
+**Delete a supplier**
+
+```ruby
+CrunchApi::Supplier.delete(123)
 ```
 
 ## Contributing
