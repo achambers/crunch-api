@@ -215,4 +215,34 @@ describe CrunchApi::Supplier do
       end
     end
   end
+
+  describe "DELETE /suppliers/{id}" do
+    it "calls the correct resource" do
+      VCR.use_cassette('delete_supplier_success') do
+        CrunchApi::Supplier.delete(844)
+
+        assert_requested(:delete, 'https://demo.crunch.co.uk/crunch-core/seam/resource/rest/api/suppliers/844')
+      end
+    end
+
+    describe "a successful request" do
+      it "returns true" do
+        VCR.use_cassette('delete_supplier_success') do
+          result = CrunchApi::Supplier.delete(844)
+
+          result.must_equal true
+        end
+      end
+    end
+
+    describe "a failed request" do
+      it "returns false" do
+        VCR.use_cassette('delete_supplier_failure') do
+          result = CrunchApi::Supplier.delete(844)
+
+          result.must_equal false
+        end
+      end
+    end
+  end
 end

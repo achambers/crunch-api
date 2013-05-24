@@ -1,38 +1,31 @@
 ---
 http_interactions:
 - request:
-    method: put
+    method: delete
     uri: https://demo.crunch.co.uk/crunch-core/seam/resource/rest/api/suppliers/844
     body:
-      encoding: UTF-8
-      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><supplier defaultExpenseType="GENERAL_INSURANCE"  xmlns="http://api.crunch.co.uk/rest"></supplier>
+      encoding: US-ASCII
+      string: ''
     headers:
-      Content-Type:
-      - application/xml
       Accept:
       - ! '*/*'
       User-Agent:
       - OAuth gem v0.4.7
-      Content-Length:
-      - '153'
       Authorization:
-      - OAuth oauth_body_hash="xxx", oauth_consumer_key="aaron_chambers",
-        oauth_nonce="xxx", oauth_signature="xxx",
-        oauth_signature_method="HMAC-SHA1", oauth_timestamp="1369420372", oauth_token="xxx",
-        oauth_version="1.0"
+      - <Authorization>
   response:
     status:
       code: 200
       message: OK
     headers:
       Date:
-      - Fri, 24 May 2013 18:32:53 GMT
+      - Fri, 24 May 2013 20:38:16 GMT
       Server:
       - Apache
       Set-Cookie:
-      - JSESSIONID=puVM9pMHNVfFMLXNI6XgQZ-Z.undefined; Path=/crunch-core; Secure
+      - JSESSIONID=8oy9x1CY6gymTL8Ru4dQdEwn.undefined; Path=/crunch-core; Secure
       Content-Length:
-      - '401'
+      - '230'
       Access-Control-Allow-Origin:
       - ! '*'
       Access-Control-Allow-Headers:
@@ -47,9 +40,7 @@ http_interactions:
       encoding: US-ASCII
       string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><crunchMessage
         xmlns="http://api.crunch.co.uk/rest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        outcome="failure" xsi:schemaLocation="http://api.crunch.co.uk/rest"><errors
-        count="0"><error><cause>You must provide either a company name or a contact
-        name for the supplier you are creating/updating</cause></error></errors></crunchMessage>
+        outcome="removed" xsi:schemaLocation="http://api.crunch.co.uk/rest"/>
     http_version: 
-  recorded_at: Fri, 24 May 2013 18:32:53 GMT
+  recorded_at: Fri, 24 May 2013 20:38:16 GMT
 recorded_with: VCR 2.4.0

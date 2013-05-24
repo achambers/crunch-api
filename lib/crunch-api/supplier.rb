@@ -20,20 +20,8 @@ module CrunchApi
       @fax = xml[:fax]
     end
 
-    def unknown_supplier?
-      @unknown_supplier_flag
-    end
-
-    def [](method)
-      self.send(method)
-    end
-
-    def []=(method, value)
-      self.instance_variable_set("@#{method}", value)
-    end
-
     def self.all
-      response = get(path)
+      response = make_request(:get, path)
 
       parse_xml(response.body).collect{|attributes| new(attributes)}
     end
@@ -41,7 +29,7 @@ module CrunchApi
     def self.for_id(id)
       uri = "#{path}/#{id}"
 
-      response = get(uri)
+      response = make_request(:get, uri)
 
       new(parse_xml(response.body)) if success?(response.body)
     end
@@ -49,7 +37,7 @@ module CrunchApi
     def self.add(attributes)
       xml = request_xml(attributes)
 
-      response = post(path, xml)
+      response = make_request(:post, path, xml)
 
       if success?(response.body)
         attributes[:id] = parse_xml(response.body)[:id]
@@ -63,13 +51,33 @@ module CrunchApi
 
       xml = request_xml(attributes)
 
-      response = put(uri, xml)
+      response = make_request(:put, uri, xml)
 
       if success?(response.body)
         attributes[:id] = id
 
         new(attributes)
       end
+    end
+
+    def self.delete(id)
+      uri = "#{path}/#{id}"
+
+      response = make_request(:delete, uri)
+
+      success?(response.body)
+    end
+
+    def unknown_supplier?
+      @unknown_supplier_flag
+    end
+
+    def [](method)
+      self.send(method)
+    end
+
+    def []=(method, value)
+      self.instance_variable_set("@#{method}", value)
     end
 
     private
@@ -96,7 +104,7 @@ module CrunchApi
     end
 
     def self.success?(xml)
-      to_hash(xml)[:crunch_message][:@outcome] == "success"
+      %w(success removed).include?(to_hash(xml)[:crunch_message][:@outcome])
     end
 
     def self.request_xml(attributes)
@@ -105,16 +113,11 @@ module CrunchApi
       ERB.new(template, 0, '>').result(binding).gsub( "\r", "").gsub( "\n", "")
     end
 
-    def self.post(uri, xml)
-      token.post(uri, xml, {'Content-Type'=>'application/xml'})
-    end
-
-    def self.put(uri, xml)
-      token.put(uri, xml, {'Content-Type'=>'application/xml'})
-    end
-
-    def self.get(uri)
-      token.get(uri)
+    def self.make_request(method, uri, xml=nil)
+      if [:put, :post].include?(method)
+        return token.send(method, uri, xml, {'Content-Type'=>'application/xml'})
+      end
+      token.send(method, uri)
     end
   end
 end
