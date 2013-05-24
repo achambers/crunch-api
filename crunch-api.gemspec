@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency("oauth", "~> 0.4.7")
   spec.add_dependency("nori", "~> 2.2.0")
   spec.add_dependency("nokogiri", "~> 1.5.9")
+  spec.add_dependency("dotenv", "~> 0.7.0")
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"

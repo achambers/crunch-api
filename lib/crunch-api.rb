@@ -1,3 +1,6 @@
+require 'dotenv'
+Dotenv.load
+
 require_relative 'crunch-api/version'
 require_relative 'crunch-api/default'
 require_relative 'crunch-api/authenticatable'
