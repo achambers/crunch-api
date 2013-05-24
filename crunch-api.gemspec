@@ -32,4 +32,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake"
   spec.add_development_dependency "webmock"
   spec.add_development_dependency "vcr", "~>2.4"
+  spec.add_development_dependency "guard", "~> 1.8.0"
+  spec.add_development_dependency "guard-minitest", "~> 0.5.0"
+  spec.add_development_dependency "terminal-notifier-guard", "~> 1.5.3"
 end
