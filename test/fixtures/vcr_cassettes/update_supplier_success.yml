@@ -1,0 +1,55 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: https://demo.crunch.co.uk/crunch-core/seam/resource/rest/api/suppliers/844
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><supplier defaultExpenseType="GENERAL_INSURANCE"  xmlns="http://api.crunch.co.uk/rest"><name>Waitrose</name><contactName>Mark
+        Hamill</contactName><email>mark@waitrose.com</email><website>waitrose.com</website><telephone>1111111</telephone><fax>02987654321</fax></supplier>
+    headers:
+      Content-Type:
+      - application/xml
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - OAuth gem v0.4.7
+      Content-Length:
+      - '327'
+      Authorization:
+      - OAuth oauth_body_hash="xxx", oauth_consumer_key="xxx",
+        oauth_nonce="xxx", oauth_signature="xxx",
+        oauth_signature_method="HMAC-SHA1", oauth_timestamp="1369419897", oauth_token="xxx",
+        oauth_version="1.0"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 24 May 2013 18:24:58 GMT
+      Server:
+      - Apache
+      Set-Cookie:
+      - JSESSIONID=1FI1TjUZD6HHuS-ooQrKSDLn.undefined; Path=/crunch-core; Secure
+      Content-Length:
+      - '273'
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Access-Control-Allow-Headers:
+      - Origin, Content-Type, Accept, X-Requested-With, oauth_consumer_key, oauth_token,
+        oauth_signature_method, oauth_signature, oauth_timestamp, oauth_nonce, oauth_version,
+        Authorization
+      Connection:
+      - close
+      Content-Type:
+      - application/*+xml
+    body:
+      encoding: US-ASCII
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><crunchMessage
+        xmlns="http://api.crunch.co.uk/rest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        outcome="success" xsi:schemaLocation="http://api.crunch.co.uk/rest"><supplier
+        supplierId="844"/></crunchMessage>
+    http_version: 
+  recorded_at: Fri, 24 May 2013 18:24:58 GMT
+recorded_with: VCR 2.4.0

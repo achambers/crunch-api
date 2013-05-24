@@ -1,0 +1,55 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: https://demo.crunch.co.uk/crunch-core/seam/resource/rest/api/suppliers/844
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><supplier defaultExpenseType="GENERAL_INSURANCE"  xmlns="http://api.crunch.co.uk/rest"></supplier>
+    headers:
+      Content-Type:
+      - application/xml
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - OAuth gem v0.4.7
+      Content-Length:
+      - '153'
+      Authorization:
+      - OAuth oauth_body_hash="IoG%2BlrwOYMiufK71hrjHw2Ra4Rc%3D", oauth_consumer_key="aaron_chambers",
+        oauth_nonce="PBH13LLXgWNVqCJY6FmJmH91f64DjMwRnKne8TTHA", oauth_signature="U4mnTxnu8A2DhiHmrr8Q1ACqF2M%3D",
+        oauth_signature_method="HMAC-SHA1", oauth_timestamp="1369420372", oauth_token="9b735437-691b-4669-b470-10b236cfcd2b",
+        oauth_version="1.0"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 24 May 2013 18:32:53 GMT
+      Server:
+      - Apache
+      Set-Cookie:
+      - JSESSIONID=puVM9pMHNVfFMLXNI6XgQZ-Z.undefined; Path=/crunch-core; Secure
+      Content-Length:
+      - '401'
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Access-Control-Allow-Headers:
+      - Origin, Content-Type, Accept, X-Requested-With, oauth_consumer_key, oauth_token,
+        oauth_signature_method, oauth_signature, oauth_timestamp, oauth_nonce, oauth_version,
+        Authorization
+      Connection:
+      - close
+      Content-Type:
+      - application/*+xml
+    body:
+      encoding: US-ASCII
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><crunchMessage
+        xmlns="http://api.crunch.co.uk/rest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        outcome="failure" xsi:schemaLocation="http://api.crunch.co.uk/rest"><errors
+        count="0"><error><cause>You must provide either a company name or a contact
+        name for the supplier you are creating/updating</cause></error></errors></crunchMessage>
+    http_version: 
+  recorded_at: Fri, 24 May 2013 18:32:53 GMT
+recorded_with: VCR 2.4.0

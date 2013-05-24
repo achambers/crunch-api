@@ -147,4 +147,72 @@ describe CrunchApi::Supplier do
       end
     end
   end
+
+  describe "PUT /suppliers/{id}" do
+    it "calls the correct resource" do
+      VCR.use_cassette('update_supplier_success') do
+        CrunchApi::Supplier.update(844, {})
+
+        assert_requested(:put, 'https://demo.crunch.co.uk/crunch-core/seam/resource/rest/api/suppliers/844')
+      end
+    end
+
+    describe "a successful request" do
+      it "returns the updated supplier" do
+        VCR.use_cassette('update_supplier_success') do
+          attributes = {
+              default_expense_type: "GENERAL_INSURANCE",
+              name: "Waitrose",
+              contact_name: "Mark Hamill",
+              email: "mark@waitrose.com",
+              website: "waitrose.com",
+              telephone: "1111111",
+              fax: "02987654321"
+          }
+
+          supplier = CrunchApi::Supplier.update(844, attributes)
+
+          supplier.wont_be_nil
+          supplier.id.must_equal 844
+          supplier.telephone.must_equal "1111111"
+        end
+      end
+
+      it "accepts a supplier object" do
+        VCR.use_cassette('update_supplier_success') do
+          attributes = {
+              default_expense_type: "GENERAL_INSURANCE",
+              name: "Waitrose",
+              contact_name: "Mark Hamill",
+              email: "mark@waitrose.com",
+              website: "waitrose.com",
+              telephone: "1111111",
+              fax: "02987654321"
+          }
+
+          supplier = CrunchApi::Supplier.new(attributes)
+
+          supplier = CrunchApi::Supplier.update(844, supplier)
+
+          supplier.wont_be_nil
+          supplier.id.must_equal 844
+          supplier.telephone.must_equal "1111111"
+        end
+      end
+    end
+
+    describe "a failed request" do
+      it "returns nil" do
+        VCR.use_cassette('update_supplier_failure') do
+          attributes = {
+              default_expense_type: "GENERAL_INSURANCE",
+          }
+
+          supplier = CrunchApi::Supplier.update(844, attributes)
+
+          supplier.must_be_nil
+        end
+      end
+    end
+  end
 end

@@ -5,7 +5,7 @@ module CrunchApi
 
     extend CrunchApi::Authenticatable
 
-    attr_reader :id, :uri, :name, :contact_name, :email, :website, :telephone, :fax, :default_expense_type
+    attr_reader :id, :uri, :default_expense_type, :unknown_supplier_flag, :name, :contact_name, :email, :website, :telephone, :fax
 
     def initialize(xml)
       @id = xml[:id].to_i
@@ -22,6 +22,14 @@ module CrunchApi
 
     def unknown_supplier?
       @unknown_supplier_flag
+    end
+
+    def [](method)
+      self.send(method)
+    end
+
+    def []=(method, value)
+      self.instance_variable_set("@#{method}", value)
     end
 
     def self.all
@@ -45,6 +53,20 @@ module CrunchApi
 
       if success?(response.body)
         attributes[:id] = parse_xml(response.body)[:id]
+
+        new(attributes)
+      end
+    end
+
+    def self.update(id, attributes)
+      uri = "#{path}/#{id}"
+
+      xml = request_xml(attributes)
+
+      response = put(uri, xml)
+
+      if success?(response.body)
+        attributes[:id] = id
 
         new(attributes)
       end
@@ -80,11 +102,15 @@ module CrunchApi
     def self.request_xml(attributes)
       template = File.read('templates/supplier.erb')
 
-      ERB.new(template, 0, '>').result(binding)
+      ERB.new(template, 0, '>').result(binding).gsub( "\r", "").gsub( "\n", "")
     end
 
     def self.post(uri, xml)
-      token.post(uri, xml.gsub( "\r", "").gsub( "\n", ""), {'Content-Type'=>'application/xml'})
+      token.post(uri, xml, {'Content-Type'=>'application/xml'})
+    end
+
+    def self.put(uri, xml)
+      token.put(uri, xml, {'Content-Type'=>'application/xml'})
     end
 
     def self.get(uri)
