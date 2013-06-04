@@ -20,8 +20,12 @@ module CrunchApi
       @fax = xml[:fax]
     end
 
-    def self.all
-      response = make_request(:get, path)
+    def self.all(options={})
+      query_string = options_to_query_string(options)
+
+      uri = "#{path}#{query_string}"
+
+      response = make_request(:get, uri)
 
       parse_xml(response.body).collect{|attributes| new(attributes)}
     end
@@ -118,6 +122,16 @@ module CrunchApi
         return token.send(method, uri, xml, {'Content-Type'=>'application/xml'})
       end
       token.send(method, uri)
+    end
+
+    def self.default_options
+      {first_result: 0}
+    end
+
+    def self.options_to_query_string(options)
+      options = default_options.merge(options)
+
+      options.inject("?") { |str, arr| str << "#{arr[0].to_s.gsub(/_([a-z])/) { $1.upcase }}=#{arr[1]}&" }
     end
   end
 end

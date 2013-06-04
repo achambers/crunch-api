@@ -50,7 +50,7 @@ describe CrunchApi::Supplier do
       VCR.use_cassette('get_suppliers_success') do
         CrunchApi::Supplier.all
 
-        assert_requested(:get, "https://demo.crunch.co.uk/crunch-core/seam/resource/rest/api/suppliers")
+        assert_requested(:get, "https://demo.crunch.co.uk/crunch-core/seam/resource/rest/api/suppliers?firstResult=0")
       end
     end
 
@@ -62,6 +62,25 @@ describe CrunchApi::Supplier do
         suppliers.must_be_kind_of Array
         suppliers.first.must_be_kind_of CrunchApi::Supplier
         suppliers.first.name.must_equal "Apple Inc"
+      end
+    end
+
+    describe "pagination" do
+      it "returns the specified supplier as the first result" do
+        VCR.use_cassette('get_suppliers_pagination_first_result_success') do
+          suppliers = CrunchApi::Supplier.all(first_result: 5)
+
+          suppliers.size.must_equal 5
+          suppliers.first.name.must_equal "E-Crunch Ltd"
+        end
+      end
+
+      it "returns the specified number of suppliers" do
+        VCR.use_cassette('get_suppliers_pagination_results_per_page_success') do
+          suppliers = CrunchApi::Supplier.all(results_per_page: 4)
+
+          suppliers.size.must_equal 4
+        end
       end
     end
   end

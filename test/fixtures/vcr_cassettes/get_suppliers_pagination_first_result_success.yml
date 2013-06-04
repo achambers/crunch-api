@@ -1,0 +1,57 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://demo.crunch.co.uk/crunch-core/seam/resource/rest/api/suppliers?firstResult=5
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - OAuth gem v0.4.7
+      Authorization:
+      - <Authorization>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 04 Jun 2013 12:09:33 GMT
+      Server:
+      - Apache
+      Set-Cookie:
+      - JSESSIONID=ZukydCS7CQh5TDwBvdY1Ko-k.undefined; Path=/crunch-core; Secure
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - '1492'
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Access-Control-Allow-Headers:
+      - Origin, Content-Type, Accept, X-Requested-With, oauth_consumer_key, oauth_token,
+        oauth_signature_method, oauth_signature, oauth_timestamp, oauth_nonce, oauth_version,
+        Authorization
+      Connection:
+      - close
+      Content-Type:
+      - application/*+xml
+    body:
+      encoding: US-ASCII
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><crunchMessage
+        xmlns="http://api.crunch.co.uk/rest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        outcome="success" xsi:schemaLocation="http://api.crunch.co.uk/rest"><suppliers
+        count="10" firstResult="5"><supplier supplierId="618" defaultExpenseType="ACCOUNTANCY"
+        resourceUrl="/crunch-core/seam/resource/rest/api/suppliers/618"><name>E-Crunch
+        Ltd</name><email>support@crunch.co.uk</email><website>www.crunch.co.uk</website><telephone>0844
+        500 8000</telephone></supplier><supplier supplierId="646" resourceUrl="/crunch-core/seam/resource/rest/api/suppliers/646"><name>Harvey
+        Norman</name><contactName></contactName><email></email><website></website><telephone></telephone><fax></fax></supplier><supplier
+        supplierId="710" defaultExpenseType="PRINTING_POSTAGE_STATIONERY" resourceUrl="/crunch-core/seam/resource/rest/api/suppliers/710"><name>Ryman</name><contactName></contactName><email></email><website></website><telephone></telephone><fax></fax></supplier><supplier
+        supplierId="834" resourceUrl="/crunch-core/seam/resource/rest/api/suppliers/834"><name>Sainsburys</name></supplier><supplier
+        supplierId="845" defaultExpenseType="GENERAL_INSURANCE" resourceUrl="/crunch-core/seam/resource/rest/api/suppliers/845"><name>Waitrose</name><contactName>Mark
+        Hamill</contactName><email>mark@waitrose.com</email><website>waitrose.com</website><telephone>02123456789</telephone><fax>02987654321</fax></supplier></suppliers></crunchMessage>
+    http_version: 
+  recorded_at: Tue, 04 Jun 2013 12:09:33 GMT
+recorded_with: VCR 2.4.0

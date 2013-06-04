@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://demo.crunch.co.uk/crunch-core/seam/resource/rest/api/suppliers
+    uri: https://demo.crunch.co.uk/crunch-core/seam/resource/rest/api/suppliers?firstResult=0
     body:
       encoding: US-ASCII
       string: ''
