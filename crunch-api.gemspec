@@ -27,6 +27,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency("nori", "~> 2.2.0")
   spec.add_dependency("nokogiri", "~> 1.5.9")
   spec.add_dependency("dotenv", "~> 0.7.0")
+  spec.add_dependency("money", "~> 5.1.1")
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
@@ -35,4 +36,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "guard", "~> 1.8.0"
   spec.add_development_dependency "guard-minitest", "~> 0.5.0"
   spec.add_development_dependency "terminal-notifier-guard", "~> 1.5.3"
+  spec.add_development_dependency "m", "~> 1.3.1"
 end

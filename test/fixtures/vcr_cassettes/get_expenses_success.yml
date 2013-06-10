@@ -1,0 +1,60 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://demo.crunch.co.uk/crunch-core/seam/resource/rest/api/expenses
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - OAuth gem v0.4.7
+      Authorization:
+      - <Authorization>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 10 Jun 2013 07:11:46 GMT
+      Server:
+      - Apache
+      Set-Cookie:
+      - JSESSIONID=b0WMJRrLdAYaMIQrqzS1506X.undefined; Path=/crunch-core; Secure
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - '2108'
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Access-Control-Allow-Headers:
+      - Origin, Content-Type, Accept, X-Requested-With, oauth_consumer_key, oauth_token,
+        oauth_signature_method, oauth_signature, oauth_timestamp, oauth_nonce, oauth_version,
+        Authorization
+      Connection:
+      - close
+      Content-Type:
+      - application/*+xml
+    body:
+      encoding: US-ASCII
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><crunchMessage
+        xmlns="http://api.crunch.co.uk/rest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        outcome="success" xsi:schemaLocation="http://api.crunch.co.uk/rest"><expenses
+        count="2" firstResult="0"><expense expenseId="2427" resourceUrl="/crunch-core/seam/resource/rest/api/expenses/2427"><expenseDetails><supplier
+        supplierId="708"><name>Currys</name><contactName></contactName></supplier><supplierReference>987</supplierReference><postingDate>2013-06-10T00:00:00+01:00</postingDate></expenseDetails><expenseLineItems
+        count="1" lineItemGrossTotal="19.00"><expenseLineItem><expenseType>COMPUTER_CONSUMABLES</expenseType><lineItemDescription>Printer
+        paper</lineItemDescription><lineItemAmount><netAmount>15.83</netAmount><grossAmount>19.00</grossAmount><vatAmount>3.17</vatAmount></lineItemAmount></expenseLineItem></expenseLineItems><paymentDetails
+        count="1"><payment><paymentDate>2013-06-10T00:00:00+01:00</paymentDate><amount>19.00</amount><paymentMethod>DIRECTORS_EXPENSES</paymentMethod><director
+        directorId="216">Aaron Chambers</director></payment></paymentDetails><note>This
+        is a note</note></expense><expense expenseId="2318" resourceUrl="/crunch-core/seam/resource/rest/api/expenses/2318"><expenseDetails><supplier
+        supplierId="845"><name>Waitrose</name><contactName>Mark Hamill</contactName></supplier><supplierReference>REF123</supplierReference><postingDate>2013-05-25T00:00:00+01:00</postingDate></expenseDetails><expenseLineItems
+        count="1" lineItemGrossTotal="100.00"><expenseLineItem><expenseType>GENERAL_INSURANCE</expenseType><lineItemDescription>Test
+        Expense</lineItemDescription><lineItemAmount><netAmount>100.00</netAmount><grossAmount>100.00</grossAmount><vatAmount>0.00</vatAmount></lineItemAmount></expenseLineItem></expenseLineItems><paymentDetails
+        count="1"><payment><paymentDate>2013-05-25T00:00:00+01:00</paymentDate><amount>100.00</amount><paymentMethod>DIRECTORS_EXPENSES</paymentMethod><director
+        directorId="216">Aaron Chambers</director></payment></paymentDetails><note></note></expense></expenses></crunchMessage>
+    http_version: 
+  recorded_at: Mon, 10 Jun 2013 07:11:46 GMT
+recorded_with: VCR 2.4.0

@@ -1,0 +1,50 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://demo.crunch.co.uk/crunch-core/seam/resource/rest/api/expenses/999
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - OAuth gem v0.4.7
+      Authorization:
+      - <Authorization>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 15 Jun 2013 17:19:49 GMT
+      Server:
+      - Apache
+      Set-Cookie:
+      - JSESSIONID=tOcGgAqs9ZJIkBwS+gcNqX5N.undefined; Path=/crunch-core; Secure
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - '375'
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Access-Control-Allow-Headers:
+      - Origin, Content-Type, Accept, X-Requested-With, oauth_consumer_key, oauth_token,
+        oauth_signature_method, oauth_signature, oauth_timestamp, oauth_nonce, oauth_version,
+        Authorization
+      Connection:
+      - close
+      Content-Type:
+      - application/*+xml
+    body:
+      encoding: US-ASCII
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><crunchMessage
+        xmlns="http://api.crunch.co.uk/rest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        outcome="failure" xsi:schemaLocation="http://api.crunch.co.uk/rest"><errors
+        count="0"><error><cause>Cannot find expense with id 999 for Crunch client
+        Aaron Chambers Test Ltd</cause></error></errors></crunchMessage>
+    http_version: 
+  recorded_at: Sat, 15 Jun 2013 17:19:55 GMT
+recorded_with: VCR 2.4.0
