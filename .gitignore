@@ -16,5 +16,7 @@ test/tmp
 test/version_tmp
 tmp
 .idea
-.rvmrc
 .env
+.ruby-gemset
+.ruby-version
+*.swp
