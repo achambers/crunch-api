@@ -43,8 +43,10 @@ module CrunchApi
 
     def self.parse_xml(xml)
       hash = to_hash(xml)
-      hash = hash[:crunch_message][:expenses] || hash[:crunch_message]
-      hash[:expense]
+      hash = hash[:crunch_message][:expenses] # || hash[:crunch_message]
+      expense = hash[:expense]
+      puts expense
+      expense
     end
 
     def self.to_hash(xml)
