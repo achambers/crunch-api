@@ -24,7 +24,8 @@ module CrunchApi
     def self.all
       response = make_request(:get, path)
 
-      parse_xml(response.body).collect{|attributes| new(attributes)}
+      response_objects = CrunchApi::ResponseMapper::ExpenseCollectionMapper.new(response.body).map
+      response_objects.collect{|attributes| new(attributes)}
     end
 
     def self.for_id(id)
@@ -32,21 +33,16 @@ module CrunchApi
       
       response = make_request(:get, uri)      
 
-      new(parse_xml(response.body)) if success?(response.body)
+      if success?(response.body)
+        response_objects = CrunchApi::ResponseMapper::ExpenseCollectionMapper.new(response.body).map
+        new(response_objects.first) 
+      end
     end
 
     private
 
     def self.path
       "#{CrunchApi.options[:endpoint]}/crunch-core/seam/resource/rest/api/expenses"
-    end
-
-    def self.parse_xml(xml)
-      hash = to_hash(xml)
-      hash = hash[:crunch_message][:expenses] # || hash[:crunch_message]
-      expense = hash[:expense]
-      puts expense
-      expense
     end
 
     def self.to_hash(xml)
