@@ -1,1 +1,0 @@
-require_relative 'response_mapper/expense_collection_mapper'

@@ -13,30 +13,30 @@ module CrunchApi
         @uri = attributes[:uri]
        
         expense_details = attributes.fetch(:expense_details, {}) 
-        @supplier_reference = expense_details[:supplier_reference]
-        @date = expense_details[:posting_date]
-        
-        supplier_attributes = expense_details.fetch(:supplier, nil)
-        @supplier = CrunchApi::Supplier.new(supplier_attributes) if supplier_attributes
+        if expense_details
+          @supplier_reference = expense_details[:supplier_reference] 
+          @date = expense_details[:posting_date]
+          
+          supplier_attributes = expense_details.fetch(:supplier, nil)
+          @supplier = CrunchApi::Supplier.new(supplier_attributes) if supplier_attributes
+
+        end
       end
     end
 
     def self.all
-      response = make_request(:get, path)
+      http_response = make_request(:get, path)
+      response = CrunchApi::Response::ExpenseCollectionResponse.new(http_response.body)
 
-      response_objects = CrunchApi::ResponseMapper::ExpenseCollectionMapper.new(response.body).map
-      response_objects.collect{|attributes| new(attributes)}
+      response.expenses if response.success?
     end
 
     def self.for_id(id)
       uri = "#{path}/#{id}"
-      
-      response = make_request(:get, uri)      
+      http_response = make_request(:get, uri)      
+      response = CrunchApi::Response::ExpenseCollectionResponse.new(http_response.body)
 
-      if success?(response.body)
-        response_objects = CrunchApi::ResponseMapper::ExpenseCollectionMapper.new(response.body).map
-        new(response_objects.first) 
-      end
+      response.expenses.first if response.success?
     end
 
     private
@@ -45,28 +45,12 @@ module CrunchApi
       "#{CrunchApi.options[:endpoint]}/crunch-core/seam/resource/rest/api/expenses"
     end
 
-    def self.to_hash(xml)
-      mappings = {
-          :@supplierId => :id,
-          :@resource_url => :uri,
-          :@default_expense_type => :default_expense_type,
-          :@unknown_supplier => :unknown_supplier_flag,
-          :@expenseId => :id
-      }
-
-      Nori.new(:convert_tags_to => lambda { |tag| mappings[tag.to_sym] || tag.snakecase.to_sym }).parse(xml)
-    end
-
     def self.make_request(method, uri, xml=nil)
       if [:put, :post].include?(method)
         return token.send(method, uri, xml, {'Content-Type'=>'application/xml'})
       end
       token.send(method, uri)
     end
-
-    def self.success?(xml)
-      %w(success removed).include?(to_hash(xml)[:crunch_message][:@outcome])
-    end
-
   end
 end
+

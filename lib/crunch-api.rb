@@ -7,7 +7,7 @@ require_relative 'crunch-api/authenticatable'
 require_relative 'crunch-api/supplier'
 require_relative 'crunch-api/expense'
 require_relative 'crunch-api/expense_item'
-require_relative 'crunch-api/response_mapper'
+require_relative 'crunch-api/response'
 
 module CrunchApi
   class << self
