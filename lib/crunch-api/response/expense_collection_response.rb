@@ -1,4 +1,5 @@
 require 'nori' 
+
 module CrunchApi
   module Response
     class ExpenseCollectionResponse

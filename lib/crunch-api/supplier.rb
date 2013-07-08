@@ -22,29 +22,31 @@ module CrunchApi
 
     def self.all(options={})
       query_string = options_to_query_string(options)
-
       uri = "#{path}#{query_string}"
-
-      response = make_request(:get, uri)
-
-      parse_xml(response.body).collect{|attributes| new(attributes)}
+      http_response = make_request(:get, uri)
+      response = CrunchApi::Response::SupplierCollectionResponse.new(http_response.body)
+      
+      response.suppliers if response.success?
     end
 
     def self.for_id(id)
       uri = "#{path}/#{id}"
 
-      response = make_request(:get, uri)
+      http_response = make_request(:get, uri)
 
-      new(parse_xml(response.body)) if success?(response.body)
+      response = CrunchApi::Response::SupplierCollectionResponse.new(http_response.body)
+      response.suppliers.first if response.success?
     end
 
     def self.add(attributes)
       xml = request_xml(attributes)
 
-      response = make_request(:post, path, xml)
+      http_response = make_request(:post, path, xml)
 
-      if success?(response.body)
-        attributes[:id] = parse_xml(response.body)[:id]
+      response = CrunchApi::Response::SupplierCollectionResponse.new(http_response.body)
+      
+      if response.success?
+        attributes[:id] = parse_xml(http_response.body)[:id]
 
         new(attributes)
       end
@@ -55,9 +57,11 @@ module CrunchApi
 
       xml = request_xml(attributes)
 
-      response = make_request(:put, uri, xml)
+      http_response = make_request(:put, uri, xml)
 
-      if success?(response.body)
+      response = CrunchApi::Response::SupplierCollectionResponse.new(http_response.body)
+      
+      if response.success?
         attributes[:id] = id
 
         new(attributes)
@@ -67,9 +71,11 @@ module CrunchApi
     def self.delete(id)
       uri = "#{path}/#{id}"
 
-      response = make_request(:delete, uri)
+      http_response = make_request(:delete, uri)
 
-      success?(response.body)
+      response = CrunchApi::Response::SupplierCollectionResponse.new(http_response.body)
+
+      response.success?
     end
 
     def unknown_supplier?
@@ -105,10 +111,6 @@ module CrunchApi
       }
 
       Nori.new(:convert_tags_to => lambda { |tag| mappings[tag.to_sym] || tag.snakecase.to_sym }).parse(xml)
-    end
-
-    def self.success?(xml)
-      %w(success removed).include?(to_hash(xml)[:crunch_message][:@outcome])
     end
 
     def self.request_xml(attributes)

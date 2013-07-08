@@ -1,1 +1,2 @@
 require_relative 'response/expense_collection_response'
+require_relative 'response/supplier_collection_response'
