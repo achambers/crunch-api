@@ -1,5 +1,3 @@
-require 'nori'
-
 module CrunchApi
   class Supplier
 
@@ -40,30 +38,25 @@ module CrunchApi
 
     def self.add(attributes)
       xml = request_xml(attributes)
-
+      
       http_response = make_request(:post, path, xml)
-
-      response = CrunchApi::Response::SupplierCollectionResponse.new(http_response.body)
+      response = CrunchApi::Response::SupplierObjectResponse.new(http_response.body)
       
       if response.success?
-        attributes[:id] = parse_xml(http_response.body)[:id]
-
+        attributes[:id] = response.supplier.id
         new(attributes)
       end
     end
 
     def self.update(id, attributes)
       uri = "#{path}/#{id}"
-
       xml = request_xml(attributes)
 
       http_response = make_request(:put, uri, xml)
-
-      response = CrunchApi::Response::SupplierCollectionResponse.new(http_response.body)
+      response = CrunchApi::Response::SupplierObjectResponse.new(http_response.body)
       
       if response.success?
         attributes[:id] = id
-
         new(attributes)
       end
     end
@@ -72,8 +65,7 @@ module CrunchApi
       uri = "#{path}/#{id}"
 
       http_response = make_request(:delete, uri)
-
-      response = CrunchApi::Response::SupplierCollectionResponse.new(http_response.body)
+      response = CrunchApi::Response::SupplierObjectResponse.new(http_response.body)
 
       response.success?
     end
@@ -94,23 +86,6 @@ module CrunchApi
 
     def self.path
       "#{CrunchApi.options[:endpoint]}/crunch-core/seam/resource/rest/api/suppliers"
-    end
-
-    def self.parse_xml(xml)
-      hash = to_hash(xml)
-      hash = hash[:crunch_message][:suppliers] || hash[:crunch_message]
-      hash[:supplier]
-    end
-
-    def self.to_hash(xml)
-      mappings = {
-          :@supplierId => :id,
-          :@resource_url => :uri,
-          :@default_expense_type => :default_expense_type,
-          :@unknown_supplier => :unknown_supplier_flag
-      }
-
-      Nori.new(:convert_tags_to => lambda { |tag| mappings[tag.to_sym] || tag.snakecase.to_sym }).parse(xml)
     end
 
     def self.request_xml(attributes)
