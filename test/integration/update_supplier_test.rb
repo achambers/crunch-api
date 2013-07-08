@@ -23,19 +23,9 @@ describe "UPDATE supplier integration" do
           fax: "02987654321"
       }
 
-      supplier = CrunchApi::Supplier.update(844, attributes)
+      supplier_id = CrunchApi::Supplier.update(844, attributes)
 
-      supplier.must_be_kind_of CrunchApi::Supplier
-      supplier.id.must_equal 844
-      supplier.default_expense_type.must_equal "GENERAL_INSURANCE"
-      #supplier.uri.must_equal "/crunch-core/seam/resource/rest/api/suppliers/711"
-      supplier.name.must_equal "Waitrose"
-      supplier.contact_name.must_equal "Mark Hamill"
-      supplier.email.must_equal "mark@waitrose.com"
-      supplier.website.must_equal "waitrose.com"
-      supplier.telephone.must_equal "1111111"
-      supplier.fax.must_equal "02987654321"
-      #assert supplier.unknown_supplier?
+      supplier_id.must_equal 844
     end
   end
 end

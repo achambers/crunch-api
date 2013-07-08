@@ -1,12 +1,12 @@
 require_relative '../../../test_helper'
 
 describe CrunchApi::Response::SupplierObjectResponse do
-  it "returns a supplier" do
+  it "returns the supplier id" do
     xml = "<crunchMessage><supplier supplierId='1'/></crunchMessage>"
 
-    result = CrunchApi::Response::SupplierObjectResponse.new(xml).supplier
+    result = CrunchApi::Response::SupplierObjectResponse.new(xml).supplier_id
 
-    result.must_be_kind_of CrunchApi::Supplier
+    result.must_equal 1
   end
 
   describe "a response returned with outcome=success" do

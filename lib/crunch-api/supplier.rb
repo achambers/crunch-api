@@ -25,47 +25,35 @@ module CrunchApi
       uri = "#{path}#{query_string}"
       http_response = make_request(:get, uri)
       response = CrunchApi::Response::SupplierCollectionResponse.new(http_response.body)
-      
       response.suppliers if response.success?
     end
 
     def self.for_id(id)
       uri = "#{path}/#{id}"
-
       http_response = make_request(:get, uri)
-
       response = CrunchApi::Response::SupplierCollectionResponse.new(http_response.body)
+
       response.suppliers.first if response.success?
     end
 
     def self.add(attributes)
       xml = request_xml(attributes)
-      
       http_response = make_request(:post, path, xml)
       response = CrunchApi::Response::SupplierObjectResponse.new(http_response.body)
       
-      if response.success?
-        attributes[:id] = response.supplier.id
-        new(attributes)
-      end
+      response.supplier_id if response.success?
     end
 
     def self.update(id, attributes)
       uri = "#{path}/#{id}"
       xml = request_xml(attributes)
-
       http_response = make_request(:put, uri, xml)
       response = CrunchApi::Response::SupplierObjectResponse.new(http_response.body)
-      
-      if response.success?
-        attributes[:id] = id
-        new(attributes)
-      end
+      response.supplier_id if response.success?
     end
 
     def self.delete(id)
       uri = "#{path}/#{id}"
-
       http_response = make_request(:delete, uri)
       response = CrunchApi::Response::SupplierObjectResponse.new(http_response.body)
 

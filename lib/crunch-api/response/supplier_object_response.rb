@@ -12,10 +12,8 @@ module CrunchApi
         %w(success removed).include?(as_hash[:crunch_message][:@outcome])
       end
 
-      def supplier
-        result = as_hash[:crunch_message][:supplier]
-
-        CrunchApi::Supplier.new(result)
+      def supplier_id
+        as_hash[:crunch_message][:supplier][:id].to_i
       end
 
       private

@@ -138,16 +138,9 @@ describe CrunchApi::Supplier do
               fax: "02987654321"
           }
 
-          supplier = CrunchApi::Supplier.add(attributes)
+          supplier_id = CrunchApi::Supplier.add(attributes)
 
-          supplier.wont_be_nil
-          supplier.id.must_equal 844
-          supplier.name.must_equal "Waitrose"
-          supplier.contact_name.must_equal "Mark Hamill"
-          supplier.email.must_equal "mark@waitrose.com"
-          supplier.website.must_equal "waitrose.com"
-          supplier.telephone.must_equal "02123456789"
-          supplier.fax.must_equal "02987654321"
+          supplier_id.must_equal 844
         end
       end
     end
@@ -189,11 +182,9 @@ describe CrunchApi::Supplier do
               fax: "02987654321"
           }
 
-          supplier = CrunchApi::Supplier.update(844, attributes)
+          supplier_id = CrunchApi::Supplier.update(844, attributes)
 
-          supplier.wont_be_nil
-          supplier.id.must_equal 844
-          supplier.telephone.must_equal "1111111"
+          supplier_id.must_equal 844
         end
       end
 
@@ -211,11 +202,9 @@ describe CrunchApi::Supplier do
 
           supplier = CrunchApi::Supplier.new(attributes)
 
-          supplier = CrunchApi::Supplier.update(844, supplier)
+          supplier_id = CrunchApi::Supplier.update(844, supplier)
 
-          supplier.wont_be_nil
-          supplier.id.must_equal 844
-          supplier.telephone.must_equal "1111111"
+          supplier_id.must_equal 844
         end
       end
     end
