@@ -6,16 +6,18 @@ module CrunchApi
     attr_reader :id, :uri, :default_expense_type, :unknown_supplier_flag, :name, :contact_name, :email, :website, :telephone, :fax
 
     def initialize(xml)
-      @id = xml[:id].to_i
-      @uri = xml[:uri]
-      @default_expense_type = xml[:default_expense_type]
-      @unknown_supplier_flag = xml[:unknown_supplier_flag] == "true"
-      @name = xml[:name]
-      @contact_name = xml[:contact_name]
-      @email = xml[:email]
-      @website = xml[:website]
-      @telephone = xml[:telephone]
-      @fax = xml[:fax]
+      if xml
+        @id = xml[:id].to_i
+        @uri = xml[:uri]
+        @default_expense_type = xml[:default_expense_type]
+        @unknown_supplier_flag = (xml[:unknown_supplier_flag] == "true")
+        @name = xml[:name]
+        @contact_name = xml[:contact_name]
+        @email = xml[:email]
+        @website = xml[:website]
+        @telephone = xml[:telephone]
+        @fax = xml[:fax]
+      end
     end
 
     def self.all(options={})

@@ -47,7 +47,7 @@ http_interactions:
         xmlns="http://api.crunch.co.uk/rest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         outcome="success" xsi:schemaLocation="http://api.crunch.co.uk/rest"><suppliers
         count="1" firstResult="0"><supplier supplierId="711" defaultExpenseType="INTERNET"
-        resourceUrl="/crunch-core/seam/resource/rest/api/suppliers/711"><name>BT</name><contactName>Sam
+        resourceUrl="/crunch-core/seam/resource/rest/api/suppliers/711" unknownSupplier="true"><name>BT</name><contactName>Sam
         Smith</contactName><email>sam@bt.com</email><website>bt.com</website><telephone>0712345678</telephone><fax>0212345678</fax></supplier></suppliers></crunchMessage>
     http_version: 
   recorded_at: Thu, 16 May 2013 21:15:56 GMT

@@ -47,8 +47,8 @@ http_interactions:
         xmlns="http://api.crunch.co.uk/rest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         outcome="success" xsi:schemaLocation="http://api.crunch.co.uk/rest"><suppliers
         count="6" firstResult="0"><supplier supplierId="709" defaultExpenseType="EQUIPMENT_COST"
-        resourceUrl="/crunch-core/seam/resource/rest/api/suppliers/709"><name>Apple
-        Inc</name><contactName></contactName><email>test@apple.com</email><website></website><telephone></telephone><fax></fax></supplier><supplier
+        resourceUrl="/crunch-core/seam/resource/rest/api/suppliers/709" unknownSupplier="true"><name>Apple
+        Inc</name><contactName>Joe Burns</contactName><email>test@apple.com</email><website>apple.com</website><telephone>0212345</telephone><fax>029876</fax></supplier><supplier
         supplierId="711" defaultExpenseType="INTERNET" resourceUrl="/crunch-core/seam/resource/rest/api/suppliers/711"><name>BT</name><contactName>Sam
         Smith</contactName><email>sam@bt.com</email><website>bt.com</website><telephone>0712345678</telephone><fax>0212345678</fax></supplier><supplier
         supplierId="708" resourceUrl="/crunch-core/seam/resource/rest/api/suppliers/708"><name>Currys</name><contactName></contactName><email></email><website></website><telephone></telephone><fax></fax></supplier><supplier
